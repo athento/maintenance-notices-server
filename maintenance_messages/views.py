@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseBadRequest
-from django.utils.dateparse import parse_date
 from django.contrib.auth.models import User
 from maintenance_messages.models import Maintenance_Message
 from django.utils import timezone
@@ -23,6 +22,10 @@ def get(request, domain):
     return HttpResponse("Hello, world." + output)
 
 
+def delete(request):
+    pass
+
+
 def create(request):
     try:
         user = User.objects.filter(username__startswith=request.POST['user'])[0]
@@ -39,15 +42,18 @@ def create(request):
         print exception
         return HttpResponseBadRequest()
 
+
 @login_required(login_url='/login/')
 def index(request):
 
     messages = Maintenance_Message.objects.all().order_by('domain', 'start_date')
 
     try:
+        user = User.objects.filter(username__startswith=request.POST['user'])[0]
+
         message = Maintenance_Message(domain=request.POST['domain'],
                                       message=request.POST['message'],
-                                      owner=request.POST['user'],
+                                      owner=user,
                                       start_date=request.POST['start_date'],
                                       end_date=request.POST['end_date'],
                                       create_date=timezone.now())
@@ -57,12 +63,14 @@ def index(request):
                 'info_message': "Created correctly.",
                 'messages': messages,
             })
-        except:
+        except Exception as exception:
+            print exception
             return render(request, 'maintenance_messages/index.html', {
                 'error_message': "Couldn't create.",
                 'messages': messages,
             })
-    except:
+    except Exception as exception:
+        print exception
         return render(request, 'maintenance_messages/index.html', {
             'messages': messages,
         })
