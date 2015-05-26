@@ -36,15 +36,15 @@ def json_response(func):
 def get(request, domain):
 
     now = timezone.now()
-    messages = Maintenance_Message.objects.filter(domain__startswith=domain,
+    messages = Maintenance_Message.objects.filter(domain__iexact=domain,
                                                   start_date__lte=now,
                                                   end_date__gte=now)
     output = ""
 
     for message in messages:
-        output += str(message)
+        output += message.message
 
-    return {'this will be': 'JSON'}
+    return {'html': output}
 
 
 def delete(request):
@@ -74,8 +74,7 @@ def index(request):
     messages = Maintenance_Message.objects.all().order_by('domain', 'start_date')
 
     try:
-        # TODO: Revisar el delete, borra un poco random, hehe
-        delete_id = next(v for k,v in request.POST.items() if 'id' in k)
+        delete_id = next(v for k, v in request.POST.items() if 'id' in k)
         message = Maintenance_Message.objects.filter(id=delete_id)
         message.delete()
 
@@ -84,6 +83,7 @@ def index(request):
             'messages': messages,
         })
     except Exception as exception:
+        print exception
         try:
             user = User.objects.filter(username__startswith=request.POST['user'])[0]
 
