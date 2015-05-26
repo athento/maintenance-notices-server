@@ -40,7 +40,8 @@
             <input type="submit" value="create" class="form-control"/>
             <br/>
         </div>
-        <a href="/logout/">logout</a>
+        <a href="/logout/">logout</a><br/>
+        <a href="/index/">refresh</a>
     </form>
     </div>
 </div>
@@ -56,6 +57,12 @@
                 <p class="list-group-item-text">
                     Start: {{ message.start_date|date:"H:i d-m-Y" }} <br/>
                     End: {{ message.end_date|date:"H:i d-m-Y"  }}
+
+                <form action="{% url 'index' %}" method="post">
+                    <input type="hidden" name="id_{{ message.id }}" value="{{ message.id }}"/>
+                    <label for="delete_{{ message.id }}" class="btn"><i class="glyphicon glyphicon-remove-sign"></i>Remove</label>
+                    <input id="delete_{{ message.id }}" type="submit" value="delete_{{ message.id }}" class="hidden"/>
+                </form>
                 </p>
             </div>
             </div>
