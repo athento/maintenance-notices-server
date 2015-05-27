@@ -1,3 +1,38 @@
-# maintenance-notices-server
-This is a django server to show maintenance notices in any system. It may be managed using ansible
+## Synopsis
 
+This is a django server to show maintenance notices in any system. It uses a REST API to get and create notices. It may be managed using Ansible.
+
+## Code Example
+
+Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
+
+```python
+@json_response
+def get(request, domain):
+....
+def create(request):
+....
+@login_required(login_url='/login/')
+def index(request):
+```
+## Motivation
+
+A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
+
+We created this server to be a relay between Ansible and Nuxeo servers. This server stores notices for a Nuxeo plugin.
+
+## Installation
+
+Provide code examples and explanations of how to get the project.
+
+## API Reference
+
+Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
+
+## Tests
+
+Describe and show how to run the tests with code examples.
+
+## Contributors
+
+Let people know how they can dive into the project, include important links to things like issue trackers, irc, twitter accounts if applicable.

@@ -1,3 +1,4 @@
+import urllib
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.contrib.auth.models import User
@@ -11,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 
 def json_response(func):
     """
-    A decorator thats takes a view response and turns it
+    A decorator that takes a view response and turns it
     into json. If a callback is added through GET or POST
     the response is JSONP.
     """
@@ -36,7 +37,7 @@ def json_response(func):
 def get(request, domain):
 
     now = timezone.now()
-    messages = Maintenance_Message.objects.filter(domain__iexact=domain,
+    messages = Maintenance_Message.objects.filter(domain__iexact=urllib.unquote(domain).decode('utf8'),
                                                   start_date__lte=now,
                                                   end_date__gte=now)
     output = ""
