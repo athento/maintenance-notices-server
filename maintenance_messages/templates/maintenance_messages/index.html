@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{% static 'maintenance_messages/css/main.css' %}">
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 </head>
 <body style="margin-top: 10px;">
 
@@ -20,19 +25,19 @@
 
     <form action="{% url 'index' %}" method="post">
         <div class="form-group">
-            <label for="domain">Domain: </label>
+            <label for="domain" data-toggle="tooltip" data-placement="right" title="For Nuxeo use: 'hostname$domain'">Domain: </label>
             <input type="text" name="domain" id="domain" class="form-control"/>
         </div>
         <div class="form-group">
-            <label for="message">Message: </label>
+            <label for="message" data-toggle="tooltip" data-placement="right" title="Use full HTML code here.">Message: </label>
             <textarea name="message" id="message" rows="6" cols="70" class="form-control"></textarea>
         </div>
         <div class="form-group">
-            <label for="start_date">Start date: (YYYY-MM-DD HH:MM)</label>
+            <label for="start_date" data-toggle="tooltip" data-placement="right" title="Format: YYYY-MM-DD HH:MM">Start date: </label>
             <input type="date" name="start_date" id="start_date" class="form-control"/>
         </div>
         <div class="form-group">
-            <label for="end_date">End date: (YYYY-MM-DD HH:MM)</label>
+            <label for="end_date" data-toggle="tooltip" data-placement="right" title="Format: YYYY-MM-DD HH:MM">End date: </label>
             <input type="date" name="end_date" id="end_date" class="form-control"/>
         </div>
         <input type="hidden" name="user" value="{{ user }}"/>
@@ -57,7 +62,6 @@
                 <p class="list-group-item-text">
                     Start: {{ message.start_date|date:"H:i d-m-Y" }} <br/>
                     End: {{ message.end_date|date:"H:i d-m-Y"  }}
-                    {{}}
                 <form action="{% url 'index' %}" method="post">
                     <input type="hidden" name="id_{{ message.id }}" value="{{ message.id }}"/>
                     <label for="delete_{{ message.id }}" class="btn"><i class="glyphicon glyphicon-remove-sign"></i>Remove</label>
