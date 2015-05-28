@@ -4,7 +4,8 @@ This is a django server to show maintenance notices in any system. It uses a RES
 
 ## Example
 
-
+### Web example
+![web interface](http://i.imgur.com/Ty818Pq.jpg)
 
 ## Motivation
 
