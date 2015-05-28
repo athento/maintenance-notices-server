@@ -57,7 +57,7 @@
                 <p class="list-group-item-text">
                     Start: {{ message.start_date|date:"H:i d-m-Y" }} <br/>
                     End: {{ message.end_date|date:"H:i d-m-Y"  }}
-
+                    {{}}
                 <form action="{% url 'index' %}" method="post">
                     <input type="hidden" name="id_{{ message.id }}" value="{{ message.id }}"/>
                     <label for="delete_{{ message.id }}" class="btn"><i class="glyphicon glyphicon-remove-sign"></i>Remove</label>

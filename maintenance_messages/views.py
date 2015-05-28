@@ -35,6 +35,7 @@ def json_response(func):
 
 @json_response
 def get(request, domain):
+    """ REST API for AJAX and other clients to get their messages. """
 
     now = timezone.now()
     messages = Maintenance_Message.objects.filter(domain__iexact=urllib.unquote(domain).decode('utf8'),
@@ -49,10 +50,12 @@ def get(request, domain):
 
 
 def delete(request):
+    """ REST API for Ansible and other clients to delete messages. """
     pass
 
 
 def create(request):
+    """ REST API for Ansible and other clients to register new messages. """
     try:
         user = User.objects.filter(username__startswith=request.POST['user'])[0]
 
@@ -71,6 +74,7 @@ def create(request):
 
 @login_required(login_url='/login/')
 def index(request):
+    """ Web frontend for manual message registration. """
 
     messages = Maintenance_Message.objects.all().order_by('domain', 'start_date')
 
